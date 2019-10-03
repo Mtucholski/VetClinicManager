@@ -18,6 +18,7 @@
         <module>shop</module>
         <module>reports</module>
         <module>HR</module>
+        <module>vet</module>
     </modules>
 
 

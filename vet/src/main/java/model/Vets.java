@@ -2,11 +2,11 @@ package model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * domain object for representing a list of vets
+ * @author mateusztucholski
  */
 @XmlRootElement
 public class Vets {

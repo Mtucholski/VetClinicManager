@@ -1,20 +1,24 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import rest.VisitDeserializer;
+import rest.VisitSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table (name = "visits")
-public class Visit {
+@JsonSerialize(using = VisitSerializer.class)
+@JsonDeserialize(using = VisitDeserializer.class)
+public class Visit extends BaseEntity {
 
 
     @Column(name = "visit_date")

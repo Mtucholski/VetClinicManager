@@ -1,8 +1,12 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
+import rest.VetDeserializer;
+import rest.VetSerializer;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
@@ -14,6 +18,8 @@ import java.util.*;
  */
 @Entity
 @Table(name = "veterinarians")
+@JsonSerialize(using = VetSerializer.class)
+@JsonDeserialize(using = VetDeserializer.class)
 public class Vet extends Person {
 
 
@@ -58,5 +64,9 @@ public class Vet extends Person {
 
            getSpecialtiesInternal().remove(specialty);
        }
+    }
+
+    public void setSpecialties(Set<VetSpeciality> specialties) {
+        this.specialties = specialties;
     }
 }

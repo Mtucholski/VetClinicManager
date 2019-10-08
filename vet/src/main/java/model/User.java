@@ -1,6 +1,10 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import rest.UserDeserializer;
+import rest.UserSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -16,7 +20,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User {
+@JsonSerialize(using = UserSerializer.class)
+@JsonDeserialize(using = UserDeserializer.class)
+public class User extends BaseEntity {
 
     @Id
     @Column(name = "username")

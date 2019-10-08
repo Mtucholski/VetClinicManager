@@ -17,14 +17,14 @@ import java.util.*;
 @Table(name = "pets")
 @JsonSerialize(using = PetSerializer.class)
 @JsonDeserialize(using = PetDeserializer.class)
-public class Pet {
+public class Pet extends BaseEntity {
 
     @Column(name = "birth_date")
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthDate;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = PetSpecies.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "species_id")
     private PetSpecies petSpecies;
 
@@ -33,10 +33,10 @@ public class Pet {
     private Client client;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Visit.class)
-    private Set<Visit> visits;
+    private List<Visit> visits;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = HomeVisit.class)
-    private Set<HomeVisit> homeVisits;
+    private List<HomeVisit> homeVisits;
 
     public Pet() {
     }
@@ -47,22 +47,62 @@ public class Pet {
         this.client = client;
     }
 
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public PetSpecies getPetSpecies() {
+        return petSpecies;
+    }
+
+    public void setPetSpecies(PetSpecies petSpecies) {
+        this.petSpecies = petSpecies;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Visit> getVisits() {
+        return visits;
+    }
+
+    public void setVisits(List<Visit> visits) {
+        this.visits = visits;
+    }
+
+    public List<HomeVisit> getHomeVisits() {
+        return homeVisits;
+    }
+
+    public void setHomeVisits(List<HomeVisit> homeVisits) {
+        this.homeVisits = homeVisits;
+    }
+
     @JsonIgnore
-    protected Set<Visit> getVisitsInternally(){
+    protected List<Visit> getVisitsInternally(){
 
         if (this.visits == null || visits.isEmpty()){
 
-            this.visits = new HashSet<>();
+            this.visits = new ArrayList<>();
         }
         return  this.visits;
     }
 
     @JsonIgnore
-    protected Set<HomeVisit> getHomeVisitsInternally(){
+    protected List<HomeVisit> getHomeVisitsInternally(){
 
         if (this.homeVisits == null || homeVisits.isEmpty()){
 
-            this.homeVisits = new HashSet<>();
+            this.homeVisits = new ArrayList<>();
         }
 
         return homeVisits;

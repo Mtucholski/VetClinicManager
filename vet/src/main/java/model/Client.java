@@ -83,4 +83,13 @@ public class Client extends Person {
         return Objects.hash(email);
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address=" + address +
+                ", pets=" + pets +
+                '}';
+    }
 }

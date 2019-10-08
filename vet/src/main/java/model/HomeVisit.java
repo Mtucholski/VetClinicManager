@@ -1,20 +1,27 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+import rest.HomeVisitDeserializer;
+import rest.HomeVisitSerializer;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "homeVisits")
+@JsonSerialize(using = HomeVisitSerializer.class)
+@JsonDeserialize(using = HomeVisitDeserializer.class)
 public class HomeVisit extends Visit {
 
-    @Id
+
+    @Column(name="veterinarian")
+    @NotEmpty
     private Vet vet;
 
     @Column
@@ -42,6 +49,7 @@ public class HomeVisit extends Visit {
     }
 
     public HomeVisit(LocalDateTime visitDate, Vet vet, @NotEmpty LocalDateTime dateFrom, @NotEmpty LocalDateTime dateTo) {
+
         super(visitDate);
         this.vet = vet;
         this.dateFrom = dateFrom;

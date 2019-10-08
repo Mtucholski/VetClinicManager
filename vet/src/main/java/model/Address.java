@@ -1,6 +1,8 @@
 package model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import rest.AddressDeserializer;
 import rest.CustomAddressSerializer;
 
 import javax.persistence.*;
@@ -11,7 +13,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "address")
 @JsonSerialize(using = CustomAddressSerializer.class)
-public class Address {
+@JsonDeserialize(using = AddressDeserializer.class)
+public class Address extends BaseEntity {
 
     @Column(name = "city")
     @NotEmpty

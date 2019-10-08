@@ -6,10 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="shop" />
-        <module name="HR" />
         <module name="reports" />
+        <module name="security" />
+        <module name="vet" />
+        <module name="HR" />
+        <module name="onlineshop" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="shop" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="HR" options="-parameters" />
+      <module name="VetClinicManager" options="-parameters" />
+      <module name="onlineshop" options="-parameters" />
+      <module name="reports" options="-parameters" />
+      <module name="security" options="-parameters" />
+      <module name="shop" options="-parameters" />
+      <module name="vet" options="-parameters" />
+    </option>
   </component>
 </project>
